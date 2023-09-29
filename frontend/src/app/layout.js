@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { Header } from "./(components)/Header";
+import { NavBar } from "./(components)/NavBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,22 +12,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <>
-      {/* <AuthProvider
-        authType="cookie"
-        authName="_auth"
-        cookieDomain={window.location.hostname}
-        cookieSecure={false}
-      >
-        <BrowserRouter> */}
       <html lang="en">
         <head></head>
         <body className={inter.className}>
-          <Header></Header>
-          {children}
+          <NavBar></NavBar>
+          <div>{children}</div>
         </body>
       </html>
-      {/* </BrowserRouter>
-      </AuthProvider> */}
     </>
   );
 }
