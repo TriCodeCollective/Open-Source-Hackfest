@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Users from "../users/page";
+import Users from "./users/page";
 import RequiredAuth from "../RequiredAuth";
 
 const Admin = () => {

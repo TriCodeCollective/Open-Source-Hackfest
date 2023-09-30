@@ -26,7 +26,7 @@ export default function SignUpForm() {
     } else {
       span.textContent = "";
     }
-    router.push(router.query.from && decodeURIComponent(router.query.from));
+    router.back();
   };
 
   return (

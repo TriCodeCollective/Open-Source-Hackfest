@@ -1,10 +1,14 @@
 "use client";
-import axios from "@/api/axios";
+import { useAxiosPrivate } from "../../../(hooks)/useAxiosPrivate";
+import useRefreshToken from "@/app/(hooks)/useRefreshToken";
+import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 
 export default function Users() {
   const [users, setUsers] = useState("");
+  const refresh = useRefreshToken();
+  const axiosPrivate = useAxiosPrivate();
+  const router = useRouter();
 
   useEffect(() => {
     let isMounted = true;
@@ -12,13 +16,14 @@ export default function Users() {
 
     const getUsers = async () => {
       try {
-        const response = await axios.get("/users", {
+        const response = await axiosPrivate.get("/users", {
           signal: controller.signal, // cancel if we need to
         });
         console.log("response: ", response.data);
         isMounted && setUsers(response.data); // if isMounted is true, setUsers
       } catch (err) {
         console.log("err: ", err);
+        router.push("/login");
       }
     };
 
@@ -42,6 +47,13 @@ export default function Users() {
       ) : (
         <p>No users to display</p>
       )}
+      <button
+        onClick={() => {
+          refresh();
+        }}
+      >
+        Refresh
+      </button>
     </>
   );
 }
