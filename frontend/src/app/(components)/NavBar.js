@@ -24,7 +24,7 @@ export function NavBar() {
     //   birthday: "Jan 31, 2000",
     //   joiningDate: "Nov 17, 2016",
     //   pfp: pfp,
-    // };
+    // };'r
 
     setUsername(accountDetails.username);
     setPfp(accountDetails.pfp);
