@@ -1,0 +1,139 @@
+{
+    "database": {
+      "tables": [
+        {
+          "name": "users",
+          "fields": [
+            {"name": "id", "type": "integer", "constraints": ["primary key", "increment"]},
+            {"name": "username", "type": "varchar", "constraints": ["not null"]},
+            {"name": "email", "type": "varchar(100)", "constraints": ["unique", "not null"]},
+            {"name": "role", "type": "varchar", "default": "student"},
+            {"name": "created_at", "type": "timestamp", "default": "now()"},
+            {"name": "password", "type": "varchar", "constraints": ["not null"], "note": "password length between 10 and 20 characters"}
+          ]
+        },
+        {
+          "name": "follows",
+          "fields": [
+            {"name": "following_user_id", "type": "integer", "references": "users.id", "constraints": ["not null"]},
+            {"name": "followed_user_id", "type": "integer", "references": "users.id", "constraints": ["not null"]},
+            {"name": "created_at", "type": "timestamp", "default": "now()"}
+          ]
+        },
+        {
+          "name": "posts",
+          "fields": [
+            {"name": "id", "type": "integer", "constraints": ["primary key", "increment"]},
+            {"name": "title", "type": "varchar", "constraints": ["not null"]},
+            {"name": "body", "type": "text", "constraints": ["not null"], "note": "Content of the post"},
+            {"name": "user_id", "type": "integer", "references": "users.id", "constraints": ["not null"]},
+            {"name": "status", "type": "varchar", "default": "active"},
+            {"name": "created_at", "type": "timestamp", "default": "now()"},
+            {"name": "non_text_content_id", "type": "integer"},
+            {"name": "video_id", "type": "integer", "references": "unstructured_video.video_id", "constraints": ["not null"]},
+            {"name": "photo_id", "type": "integer", "references": "unstructured_photo.photo_id", "constraints": ["not null"]}
+          ]
+        },
+        {
+            "name": "courses",
+            "fields": [
+              {"name": "id", "type": "integer", "constraints": ["primary key", "increment"]},
+              {"name": "title", "type": "varchar(255)", "constraints": ["not null"]},
+              {"name": "description", "type": "text", "constraints": ["not null"]},
+              {"name": "instructor_id", "type": "integer", "references": "users.id", "constraints": ["not null"]},
+              {"name": "created_at", "type": "timestamp", "default": "now()"}
+            ]
+          },
+          {
+            "name": "lessons",
+            "fields": [
+              {"name": "id", "type": "integer", "constraints": ["primary key", "increment"]},
+              {"name": "course_id", "type": "integer", "references": "courses.id", "constraints": ["not null"]},
+              {"name": "title", "type": "varchar(255)", "constraints": ["not null"]},
+              {"name": "content", "type": "text", "constraints": ["not null"]},
+              {"name": "created_at", "type": "timestamp", "default": "now()"},
+              {"name": "video_id", "type": "integer", "references": "unstructured_video.video_id", "constraints": ["not null"]},
+              {"name": "photo_id", "type": "integer", "references": "unstructured_photo.photo_id", "constraints": ["not null"]}
+            ]
+          },
+          {
+            "name": "quizzes",
+            "fields": [
+              {"name": "id", "type": "integer", "constraints": ["primary key", "increment"]},
+              {"name": "lesson_id", "type": "integer", "references": "lessons.id", "constraints": ["not null"]},
+              {"name": "title", "type": "varchar(255)", "constraints": ["not null"]}
+            ]
+          },
+          {
+            "name": "questions",
+            "fields": [
+              {"name": "id", "type": "integer", "constraints": ["primary key", "increment"]},
+              {"name": "quiz_id", "type": "integer", "references": "quizzes.id", "constraints": ["not null"]},
+              {"name": "question_text", "type": "text", "constraints": ["not null"]},
+              {"name": "correct_answer_id", "type": "integer", "references": "answers.id"},
+              {"name": "video_id", "type": "integer", "references": "unstructured_video.video_id", "constraints": ["not null"]},
+              {"name": "photo_id", "type": "integer", "references": "unstructured_photo.photo_id", "constraints": ["not null"]}
+            ]
+          },
+          {
+            "name": "answers",
+            "fields": [
+              {"name": "id", "type": "integer", "constraints": ["primary key", "increment"]},
+              {"name": "question_id", "type": "integer", "references": "questions.id", "constraints": ["not null"]},
+              {"name": "answer_text", "type": "text", "constraints": ["not null"]},
+              {"name": "is_correct", "type": "boolean", "default": "false"}
+            ]
+          },
+          {
+            "name": "user_courses",
+            "fields": [
+              {"name": "user_id", "type": "integer", "references": "users.id", "constraints": ["not null"]},
+              {"name": "course_id", "type": "integer", "references": "courses.id", "constraints": ["not null"]},
+              {"name": "video_id", "type": "integer", "references": "unstructured_video.video_id", "constraints": ["not null"]},
+              {"name": "photo_id", "type": "integer", "references": "unstructured_photo.photo_id", "constraints": ["not null"]}
+            ],
+            "primary_key": ["user_id", "course_id"]
+          },
+          {
+            "name": "user_lessons",
+            "fields": [
+              {"name": "user_id", "type": "integer", "references": "users.id", "constraints": ["not null"]},
+              {"name": "lesson_id", "type": "integer", "references": "lessons.id", "constraints": ["not null"]}
+            ],
+            "primary_key": ["user_id", "lesson_id"]
+          },
+          {
+            "name": "user_quizzes",
+            "fields": [
+              {"name": "id", "type": "integer", "constraints": ["primary key", "increment"]},
+              {"name": "user_id", "type": "integer", "references": "users.id", "constraints": ["not null"]},
+              {"name": "quiz_id", "type": "integer", "references": "quizzes.id", "constraints": ["not null"]},
+              {"name": "score", "type": "integer", "constraints": ["not null"]}
+            ]
+          },
+          {
+            "name": "user_answers",
+            "fields": [
+              {"name": "user_quiz_id", "type": "integer", "references": "user_quizzes.id", "constraints": ["not null"]},
+              {"name": "answer_id", "type": "integer", "references": "answers.id", "constraints": ["not null"]}
+            ],
+            "primary_key": ["user_quiz_id", "answer_id"]
+          },
+          {
+            "name": "unstructured_photo",
+            "fields": [
+              {"name": "photo_id", "type": "integer", "constraints": ["primary key", "increment"]},
+              {"name": "photo_link", "type": "varchar", "note": "url"}
+            ]
+          },
+          {
+            "name": "unstructured_video",
+            "fields": [
+              {"name": "video_id", "type": "integer", "constraints": ["primary key", "increment"]},
+              {"name": "video_link", "type": "varchar", "note": "url"}
+            ]
+          }
+      ]
+    }
+}
+  
