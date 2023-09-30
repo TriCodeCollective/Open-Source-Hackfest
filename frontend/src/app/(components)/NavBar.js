@@ -13,18 +13,18 @@ export function NavBar() {
 
   const initializeNavBar = async () => {
     //This makes no sense, when login change a json or smth like that -> JWT, in order to be able to keeped the cclient login
-    const accountDetails = await fetchBackend("/accountDetails", "BODY", {
-      username: username,
-    });
-    // exmplaeObj =  {
-    //   username: "Dora",
-    //   description: "Buenas",
-    //   email: "email@emasdsadsadail.com",
-    //   gender: "Female",
-    //   birthday: "Jan 31, 2000",
-    //   joiningDate: "Nov 17, 2016",
-    //   pfp: pfp,
-    // };'r
+    // const accountDetails = await fetchBackend("/accountDetails", "BODY", {
+    //   username: username,
+    // });
+    const accountDetails = {
+      username: "Dora",
+      description: "Buenas",
+      email: "email@emasdsadsadail.com",
+      gender: "Female",
+      birthday: "Jan 31, 2000",
+      joiningDate: "Nov 17, 2016",
+      pfp: pfp,
+    };
 
     setUsername(accountDetails.username);
     setPfp(accountDetails.pfp);

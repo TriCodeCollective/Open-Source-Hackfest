@@ -1,11 +1,17 @@
 "use client";
 // import { fetchBackend } from "@/app/Functions";
 import React, { useState } from "react";
+import useAuth from "@/app/(hooks)/useAuth";
+import { useRouter } from "next/navigation";
 
 export default function SignUpForm() {
+  const { setAuth } = useAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [revealPassword, setRevealPassword] = useState(false);
+
+  const router = useRouter();
 
   const login = (e) => {
     e.preventDefault();
@@ -20,6 +26,7 @@ export default function SignUpForm() {
     } else {
       span.textContent = "";
     }
+    router.push(router.query.from && decodeURIComponent(router.query.from));
   };
 
   return (

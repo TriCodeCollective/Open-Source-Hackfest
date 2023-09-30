@@ -1,6 +1,8 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { NavBar } from "./(components)/NavBar";
+import { AuthProvider } from "./(context)/AuthProvider";
+import { Router } from "react-router-dom";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +17,12 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <head></head>
         <body className={inter.className}>
-          <NavBar></NavBar>
-          <div>{children}</div>
+          <AuthProvider>
+            <Router>
+              <NavBar></NavBar>
+              <div>{children}</div>
+            </Router>
+          </AuthProvider>
         </body>
       </html>
     </>

@@ -1,5 +1,5 @@
 export const fetchBackend = async (endpoint, method = "GET", body = {}) => {
-  const url = REACT_APP_BACKEND_BASE_URL + endpoint;
+  const url = "http://localhost:5000" + endpoint;
 
   let response;
   if (method == "GET") {
