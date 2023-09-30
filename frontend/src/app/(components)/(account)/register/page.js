@@ -7,6 +7,27 @@ export default function Register() {
   const [email, setEmail] = useState(false);
   const [revealPassword, setRevealPassword] = useState(false);
 
+  const generateRandomColors = () => {
+    const colors = [];
+    for (let i = 0; i <= 4; i++) {
+      var randomColor = Math.floor(Math.random() * 16777215).toString(16);
+      colors.push(`${randomColor.toLowerCase()}`);
+    }
+    return colors;
+  };
+
+  const createPfp = async () => {
+    let url = `https://source.boringavatars.com/marble/60/${username}?colors=`;
+    for (let color of generateRandomColors()) {
+      console.log("color: ", color);
+      url = url + color + ",";
+    }
+    url = url.substring(0, url.length - 1);
+    setPfp(url);
+    console.log("url: ", url);
+    //await fetchBackend("/", "POST", {pfpSrc: url})
+  };
+
   const validEmail = (e) => {
     regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     result = regex.test(e.target.value);

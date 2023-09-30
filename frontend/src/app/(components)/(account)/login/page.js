@@ -5,7 +5,7 @@ import useAuth from "@/app/(hooks)/useAuth";
 import { useRouter } from "next/navigation";
 
 export default function SignUpForm() {
-  const { setAuth } = useAuth();
+  const { setAuth, setIsLoggedIn } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,8 +14,19 @@ export default function SignUpForm() {
   const router = useRouter();
 
   const login = (e) => {
+    console.log("logging in");
     e.preventDefault();
     const result = true;
+    setAuth({
+      username: "Dora",
+      description: "Buenas",
+      pfp: "https://source.boringavatars.com/marble/60/${username}?colors=123123,123432",
+      email: "email@emasdsadsadail.com",
+      gender: "Female",
+      birthday: "Jan 31, 2000",
+      joiningDate: "Nov 17, 2016",
+    });
+    setIsLoggedIn(true);
     // await fetchBackend("/", "POST", {
     //   email: email,
     //   password: password,
@@ -26,7 +37,7 @@ export default function SignUpForm() {
     } else {
       span.textContent = "";
     }
-    router.back();
+    router.push("/profile");
   };
 
   return (
