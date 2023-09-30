@@ -35,42 +35,42 @@ export default function Videos() {
   const initializeVideos = async (category = "all") => {
     const videos = [
       {
-        id: "Bohemia Rhaps",
+        id: "Bohemia Rhaps web3 - javascript",
         link: "https://www.youtube.com/embed/tgbNymZ7vqY",
         tags: ["web3", "javascript"],
       },
       {
-        id: "Bohemia Rhadwa",
+        id: "Bohemia Rhaps 2 web3 - javascript",
         link: "https://www.youtube.com/embed/tgbNymZ7vqY",
         tags: ["web3", "javascript"],
       },
       {
-        id: "Bohemia Rhadwaad dwdaps",
+        id: "Bohemia Rhaps 3 web design - javascript - SQL",
         link: "https://www.youtube.com/embed/tgbNymZ7vqY",
         tags: ["web_design", "SQL", "javascript"],
       },
       {
-        id: "Bohemia Rhaawdps da dddwdaps",
+        id: "Bohemia Rhaps 4 web3 - javascript - SQL",
         link: "https://www.youtube.com/embed/tgbNymZ7vqY",
         tags: ["web3", "SQL", "javascript"],
       },
       {
-        id: "Bohemia Rhaps",
+        id: "Bohemia Rhaps 5  web3 - SQL",
         link: "https://www.youtube.com/embed/tgbNymZ7vqY",
         tags: ["web3", "SQL"],
       },
       {
-        id: "Bohemia Rhadwaaddddd d ddddd dd",
+        id: "Bohemia Rhaps 6  web3  - SQL",
         link: "https://www.youtube.com/embed/tgbNymZ7vqY",
         tags: ["web3", "SQL"],
       },
       {
-        id: "Bohemia Rhadwdaad dddd ddddddd ddddddddd dddddd dwdaps",
+        id: "Bohemia Rhaps 7  javascript - SQL",
         link: "https://www.youtube.com/embed/tgbNymZ7vqY",
         tags: ["javascript", "SQL"],
       },
       {
-        id: "Bohemia Rhaawdps dddawaw  wdaps",
+        id: "Bohemia Rhaps 8  open source - SQL",
         link: "https://www.youtube.com/embed/tgbNymZ7vqY",
         tags: ["open_source", "SQL"],
       },
