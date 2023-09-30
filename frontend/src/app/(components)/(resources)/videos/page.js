@@ -82,7 +82,7 @@ export default function Videos() {
       if (!video.tags.includes(category) && category !== "all") {
         continue;
       }
-      console.log("video: ", video.id);
+
       if (!videosContainer.innerHTML.includes(video.id)) {
         videosContainer.innerHTML += `<div>
         <iframe
