@@ -119,7 +119,10 @@ export default function Videos() {
         </button>
       </div>
       <br></br>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4" id="videosFeed"></div>
+      <div
+        class=" p-10 grid grid-cols-2 md:grid-cols-5 gap-2"
+        id="videosFeed"
+      ></div>
     </>
   );
 }
