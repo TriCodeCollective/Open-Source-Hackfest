@@ -3,38 +3,40 @@ import { useEffect, useState } from "react";
 import { fetchBackend } from "../Functions";
 import useAuth from "../(hooks)/useAuth";
 
+//Need to convert NavBar To Layout so it doesnt reload every time
 export function NavBar() {
+  const { isLoggedIn, auth } = useAuth();
+
   const [username, setUsername] = useState("Username");
   const [pfp, setPfp] = useState(
     "https://source.boringavatars.com/marble/60/?colors=e2c1dc,63e00c,e1b7b,f070b8,4b63f3"
   );
 
-  const { isLoggedIn } = useAuth();
   //remove expand options from profile
   const [expandOptions, setExpandOptions] = useState(false);
 
   const initializeNavBar = async () => {
-    //This makes no sense, when login change a json or smth like that -> JWT, in order to be able to keeped the cclient login
+    //JWT, in order to be able to keeped the cclient login
     // const accountDetails = await fetchBackend("/accountDetails", "BODY", {
     //   username: username,
     // });
-    const accountDetails = {
-      username: "Dora",
-      description: "Buenas",
-      email: "email@emasdsadsadail.com",
-      gender: "Female",
-      birthday: "Jan 31, 2000",
-      joiningDate: "Nov 17, 2016",
-      pfp: pfp,
-    };
-
-    setUsername(accountDetails.username);
-    setPfp(accountDetails.pfp);
+    console.log("auth: ", auth);
+    setUsername(auth.username);
+    setPfp(auth.pfp);
   };
 
   useEffect(() => {
+    console.log("initiazes");
     initializeNavBar();
   }, []);
+
+  useEffect(() => {
+    console.log("isLoggedIn: ", isLoggedIn);
+    if (isLoggedIn) {
+      console.log("logged");
+      initializeNavBar();
+    }
+  }, [isLoggedIn]);
 
   return (
     <>
