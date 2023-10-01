@@ -3,8 +3,8 @@ import { fetchBackend } from "@/app/Functions";
 import { useState } from "react";
 
 export default function Register() {
-  const [password, setPassword] = useState(false);
-  const [email, setEmail] = useState(false);
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [revealPassword, setRevealPassword] = useState(false);
 
   const generateRandomColors = () => {
@@ -29,29 +29,32 @@ export default function Register() {
   };
 
   const validEmail = (e) => {
-    regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-    result = regex.test(e.target.value);
+    const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    const result = regex.test(e.target.value);
     console.log("result: ", result);
     if (result) {
-      setEmail(password);
+      setEmail(e.target.value);
     }
     return result;
   };
 
   const validPassword = (e) => {
-    regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/g;
-    result = regex.test(e.target.value);
+    const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/g;
+    const result = regex.test(e.target.value);
     console.log("result: ", result);
     if (result) {
-      setPassword(password);
+      setPassword(e.target.value);
     }
     return result;
   };
 
-  const register = () => {
+  const register = async () => {
+    console.log(email + password)
     if (email !== "" && password !== "") {
-      const result = true;
-      // await fetchBackend("/", "POST", {email:email, password:password})
+      let result = true;
+      const res = await fetchBackend("/sign-up", "POST", {email:email, password:password});
+      result = res.ok ? true : false;
+
       const span = document.getElementById("FormErrorSpan");
       if (result) {
         span.textContent = "";
