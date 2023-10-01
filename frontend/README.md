@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+#Frontend README
 
 ## Getting Started
 
@@ -16,21 +16,34 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+##Routing
+**Home**:
+Home page of the webside, basic introduction, maybe a mix of all the contexts in a cool UI
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+    **Videos**:
+        Videos feed page,here is where user would access to numerous videos about different topics. It has a tag feature, when one is selected, only videos of that topic comes out.
 
-## Learn More
+    **Articles**:
+        Articles feed page,here is where user would access to numerous articles about different topics. It has a tag feature, when one is selected, only articles of that topic comes out.
 
-To learn more about Next.js, take a look at the following resources:
+    **/about**:
+        About page, where the team will develop a introduction, the purpose of the website, who composes the team ...
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+    **/contact**:
+        Contact page, info of each member needs to be added
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    **/profile**:
+        Profile page of the users, required log in to access, shows data of the account(username, email, gender, birthday, joining date, profile picture randomly generated on register, articles and videos made by the user...)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+    **/login**:
+        Log in form, redirects to ~/profile~
+
+    **/register**:
+        Register form
+
+
+    **/register**:
+        Register form
