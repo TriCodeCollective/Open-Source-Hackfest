@@ -72,3 +72,7 @@ def sign_up(req: flask.Request=None) -> flask.typing.ResponseReturnValue:
     api.getInstance().createBlob(fileName, data);
     return "", 201;
 ```
+
+# Reference
+## Schema map for DB
+![image](https://github.com/TriCodeCollective/Open-Source-Hackfest/assets/91957823/547d5e50-6d50-4aa3-a79b-574d4c55991e)
