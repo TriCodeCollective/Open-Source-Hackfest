@@ -1,12 +1,12 @@
 "use client";
 import { fetchBackend } from "@/app/Functions";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Register() {
-  const [password, setPassword] = useState(false);
-  const [email, setEmail] = useState(false);
   const [revealPassword, setRevealPassword] = useState(false);
 
+  const router = useRouter();
   const generateRandomColors = () => {
     const colors = [];
     for (let i = 0; i <= 4; i++) {
@@ -28,36 +28,42 @@ export default function Register() {
     //await fetchBackend("/", "POST", {pfpSrc: url})
   };
 
-  const validEmail = (e) => {
-    regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-    result = regex.test(e.target.value);
-    console.log("result: ", result);
+  const validEmail = (email) => {
+    const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    const result = regex.test(email);
     if (result) {
-      setEmail(password);
+      return email;
     }
-    return result;
+    return email;
   };
 
-  const validPassword = (e) => {
-    regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/g;
-    result = regex.test(e.target.value);
-    console.log("result: ", result);
+  const validPassword = (password) => {
+    const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/g;
+    const result = regex.test(password);
     if (result) {
-      setPassword(password);
+      return result;
     }
-    return result;
+    return password;
   };
 
-  const register = () => {
-    if (email !== "" && password !== "") {
-      const result = true;
-      // await fetchBackend("/", "POST", {email:email, password:password})
-      const span = document.getElementById("FormErrorSpan");
-      if (result) {
+  const register = async () => {
+    const email = validEmail(document.getElementById("email").value);
+    const password = validPassword(document.getElementById("password").value);
+    const span = document.getElementById("ErrorRegisterFormP");
+    if (email && password) {
+      try {
+        await fetchBackend("/sign-up-JWT", "POST", {
+          email: email,
+          password: password,
+        });
         span.textContent = "";
-      } else {
+        router.push("/profile");
+      } catch (error) {
+        console.log("error: ", error);
         span.textContent = "Something went wrong!";
       }
+    } else {
+      span.textContent = "Username or password not valid";
     }
   };
 
@@ -138,7 +144,7 @@ export default function Register() {
             Create account
           </button>
         </div>
-        <span id="FormErrorSpan"></span>
+        <p class="text-red-500 text-xs italic" id="ErrorRegisterFormP"></p>
       </form>
     </div>
   );

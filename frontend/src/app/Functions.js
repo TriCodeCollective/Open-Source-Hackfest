@@ -5,6 +5,7 @@ export const fetchBackend = async (endpoint, method = "GET", body = {}) => {
   if (method == "GET") {
     response = await fetch(url);
   } else if (method == "POST") {
+    console.log("JSON.stringify(body): ", JSON.stringify(body));
     response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(body),
@@ -13,6 +14,11 @@ export const fetchBackend = async (endpoint, method = "GET", body = {}) => {
       },
     });
 
-    return await response.json();
+    try {
+      const json = await response.json();
+      return json;
+    } catch (error) {
+      return response;
+    }
   }
 };
