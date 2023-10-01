@@ -9,9 +9,21 @@ auth = Blueprint("auth", __name__);
 @auth.route("/sign-up", methods=["POST"])
 @functions_framework.http
 def sign_up(req: flask.Request=None) -> flask.typing.ResponseReturnValue:
+    """
+    Parameters:
+        req: {
+            email: str,
+            password: str
+        }
+    """
     if req is None: req = request;
     json = req.get_json();
-    fileName = "user/" + json["name"];
+    fileName = "user/" + json["email"];
     data: str = JSONtoString(req.get_json());
-    api.getInstance().createBlob(fileName, data);
-    return "", 201;
+
+    try:
+        api.getInstance().createBlob(fileName, data);
+    except:
+        return "Error", 400;
+
+    return "Signed up successfully.", 201;
