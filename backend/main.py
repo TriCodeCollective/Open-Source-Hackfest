@@ -1,4 +1,5 @@
 from google_cloud_functions.auth.auth import *
+from google_cloud_functions.account.account import *
 from google_cloud_storage_api.client import *
 from google_cloud_storage_api.api import *
 from flask import Flask
@@ -7,7 +8,8 @@ from env import *
 
 app = Flask(__name__);
 CORS(app)
-app.register_blueprint(auth)
+app.register_blueprint(auth);
+app.register_blueprint(account);
 
 def main():
     app.run();
