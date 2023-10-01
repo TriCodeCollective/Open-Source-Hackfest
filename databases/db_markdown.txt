@@ -1,0 +1,6 @@
+The user_lessons table has a composite primary key composed of user_id and lesson_id.
+The user_quizzes table has id as the primary key and includes references to both users and quizzes tables.
+The user_answers table has a composite primary key composed of user_quiz_id and answer_id and references to the user_quizzes and answers tables.
+
+The unstructured_photo table has photo_id as the primary key and a field photo_link to store the URL.
+The unstructured_video table has video_id as the primary key and a field video_link to store the URL.

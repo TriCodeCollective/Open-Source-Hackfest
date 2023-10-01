@@ -1,0 +1,103 @@
+Table users {
+  id integer [pk, increment]
+  username varchar [not null]
+  email varchar(100) [unique, not null]
+  role varchar [default: 'student']
+  created_at timestamp [default: `now()`]
+  password varchar [not null, note: 'password length between 10 and 20 characters']
+}
+
+Table follows {
+  following_user_id integer [ref: > users.id, not null]
+  followed_user_id integer [ref: > users.id, not null]
+  created_at timestamp [default: `now()`]
+}
+
+Table posts {
+  id integer [pk, increment]
+  title varchar [not null]
+  body text [not null, note: 'Content of the post']
+  user_id integer [ref: > users.id, not null]
+  status varchar [default: 'active']
+  created_at timestamp [default: `now()`]
+  non_text_content_id integer // can be null if no URL
+  video_id integer [ref:> unstructured_video.video_id, not null]
+  photo_id integer [ref:> unstructured_photo.photo_id, not null]
+}
+
+Table courses {
+  id integer [pk, increment]
+  title varchar(255) [not null]
+  description text [not null]
+  instructor_id integer [ref: > users.id, not null]
+  created_at timestamp [default: `now()`]
+}
+
+Table lessons {
+  id integer [pk, increment]
+  course_id integer [ref: > courses.id, not null]
+  title varchar(255) [not null]
+  content text [not null]
+  created_at timestamp [default: `now()`]
+  video_id integer [ref:> unstructured_video.video_id, not null]
+  photo_id integer [ref:> unstructured_photo.photo_id, not null]
+}
+
+Table quizzes {
+  id integer [pk, increment]
+  lesson_id integer [ref: > lessons.id, not null]
+  title varchar(255) [not null]
+}
+
+Table questions {
+  id integer [pk, increment]
+  quiz_id integer [ref: > quizzes.id, not null]
+  question_text text [not null]
+  correct_answer_id integer
+  video_id integer [ref:> unstructured_video.video_id, not null]
+  photo_id integer [ref:> unstructured_photo.photo_id, not null]
+}
+
+Table answers {
+  id integer [pk, increment]
+  question_id integer [ref: > questions.id, not null]
+  answer_text text [not null]
+  is_correct boolean [default: false]
+}
+
+Table user_courses {
+  user_id integer [ref: > users.id, not null]
+  course_id integer [ref: > courses.id, not null]
+  PRIMARY KEY(user_id, course_id)
+  video_id integer [ref:> unstructured_video.video_id, not null]
+  photo_id integer [ref:> unstructured_photo.photo_id, not null]
+}
+
+Table user_lessons {
+  user_id integer [ref: > users.id, not null]
+  lesson_id integer [ref: > lessons.id, not null]
+  PRIMARY KEY(user_id, lesson_id)
+}
+
+Table user_quizzes {
+  id integer [pk, increment]
+  user_id integer [ref: > users.id, not null]
+  quiz_id integer [ref: > quizzes.id, not null]
+  score integer [not null]
+}
+
+Table user_answers {
+  user_quiz_id integer [ref: > user_quizzes.id, not null]
+  answer_id integer [ref: > answers.id, not null]
+  PRIMARY KEY(user_quiz_id, answer_id)
+}
+
+Table unstructured_photo {
+  photo_id integer
+  photo_link varchar // url
+}
+
+Table unstructured_video {
+  video_id integer
+  video_link varchar // url
+}
