@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import useAuth from "@/app/(hooks)/useAuth";
 import { useRouter } from "next/navigation";
-import { fetchBackend } from "@/app/Functions";
 
 export default function SignUpForm() {
   const { setAuth, setIsLoggedIn } = useAuth();
@@ -14,30 +13,31 @@ export default function SignUpForm() {
 
   const router = useRouter();
 
-  const login = async (e) => {
+  const login = (e) => {
     console.log("logging in");
     e.preventDefault();
-    // setAuth({
-    //   username: "Dora",
-    //   description: "Buenas",
-    //   pfp: "https://source.boringavatars.com/marble/60/${username}?colors=123123,123432",
-    //   email: "email@emasdsadsadail.com",
-    //   gender: "Female",
-    //   birthday: "Jan 31, 2000",
-    //   joiningDate: "Nov 17, 2016",
+    const result = true;
+    setAuth({
+      username: "Dora",
+      description: "Buenas",
+      pfp: "https://source.boringavatars.com/marble/60/${username}?colors=123123,123432",
+      email: "email@emasdsadsadail.com",
+      gender: "Female",
+      birthday: "Jan 31, 2000",
+      joiningDate: "Nov 17, 2016",
+    });
+    setIsLoggedIn(true);
+    // await fetchBackend("/", "POST", {
+    //   email: email,
+    //   password: password,
     // });
-    // setIsLoggedIn(true);
     const span = document.getElementById("ErrorFormP");
-    try {
-      await fetchBackend("/log-in-JWT", "POST", {
-        email: email,
-        password: password,
-      });
-      span.textContent = "";
-      router.push("/profile");
-    } catch (error) {
+    if (!result) {
       span.textContent = "Error! Password or email invalid";
+    } else {
+      span.textContent = "";
     }
+    router.push("/profile");
   };
 
   return (

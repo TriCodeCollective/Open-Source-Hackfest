@@ -1,6 +1,6 @@
 export const fetchBackend = async (endpoint, method = "GET", body = {}) => {
   const url = "http://localhost:5000" + endpoint;
-
+  
   let response;
   if (method == "GET") {
     response = await fetch(url);

@@ -55,7 +55,7 @@ export default function Register() {
         await fetchBackend("/sign-up-JWT", "POST", {
           email: email,
           password: password,
-        });
+        }); 
         span.textContent = "";
         router.push("/profile");
       } catch (error) {
