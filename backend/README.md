@@ -4,7 +4,7 @@ This part of the repo serves as a local test server before pushing the functions
 # Getting Started
 ## Installation
 ### 1. VENV
-Creation of the Virtual Environment(CD into ./backend first)
+Creation of the Virtual Environment (CD into ./backend first)
 
 ```
 pip install virtualenv
@@ -45,9 +45,30 @@ GOOGLE_APPLICATION_CREDENTIALS_FILE_NAME=<Service account file name>
 ```
 
 # Usage
+## Functions framework (Google Cloud Functions local test server)
 Use the below command with the name of the function in google_cloud_functions to test the function
 ```
 functions-framework --target <Name of the function> --debug
 ```
 
 Use postman or curl to send a POST request to the server 
+
+## Flask server
+Use the command to run the Flask server
+```
+py main.py
+```
+All the routes are in ./google_cloud_functions. Example:
+
+In ./google_cloud_functions/auth/auth.py
+```
+@auth.route("/sign-up", methods=["POST"])
+@functions_framework.http
+def sign_up(req: flask.Request=None) -> flask.typing.ResponseReturnValue:
+    if req is None: req = request;
+    json = req.get_json();
+    fileName = "user/" + json["name"];
+    data: str = JSONtoString(req.get_json());
+    api.getInstance().createBlob(fileName, data);
+    return "", 201;
+```
